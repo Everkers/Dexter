@@ -1,0 +1,9 @@
+{
+    "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+    },
+    "prettier.semi": false,
+    "prettier.trailingComma": "es5",
+    "prettier.useTabs": false,
+    "workbench.startupEditor": "newUntitledFile"
+}
