@@ -1,5 +1,6 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
+require('dotenv').config();
 const discord = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -26,16 +27,18 @@ fs.readdir(path.join(__dirname, 'commands'), (err, files) => {
     }
   });
 });
+// addWeapon sword-70-a super powerfull weapon-250-https://img/sword.png-vikings weapon
+//
 // listen to message events
 client.on('message', (msg) => {
   /* check if the message has no prefix or the author is a bot */
   if (!msg.content.startsWith(PREFIX) || msg.author.bot) return;
   /* get command from message */
-  const command = helpers.getCommand(msg.content, PREFIX);
+  const [command, attr] = helpers.getCommand(msg.content, PREFIX);
   /* get command file */
   const commandFile = client.commands.get(command);
   /* if command files is exists then run it */
-  if (commandFile) commandFile.run();
+  if (commandFile) commandFile.run(attr, msg);
 });
 
 //  pass log when the bot is ready and has no errors
