@@ -4,7 +4,7 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  extends: ["prettier", "airbnb-base"],
+  extends: ["plugin:prettier/recommended", "airbnb-base"],
   plugins: ["prettier"],
   globals: {
     Atomics: "readonly",
@@ -15,6 +15,7 @@ module.exports = {
   },
   rules: {
     "linebreak-style": ["error", "unix"],
-    "prettier/prettier": ["error", { singleQuote: true }],
+    "prettier/prettier": ["error", { singleQuote: true , trailingComma: 'all',
+    arrowParens: 'always'}],
   },
 };
