@@ -11,7 +11,7 @@ module.exports.run = async (attr, msg) => {
     const filter = (m) => m.author.id === msg.author.id;
     msg.reply(
       `Hello my name is ${GAME_CHARACTERS.blacksmith.name} the blacksmith of this village, 
-      you have 10 seconds to answer each question!`,
+      you have 30 seconds to answer each question!`,
     );
     /* values array */
     const VALUES = [];
@@ -32,11 +32,11 @@ module.exports.run = async (attr, msg) => {
         /* ask question */
         await msg.channel.send(questions[i].q);
         /* collect the answer  */
-        const collected = await msg.channel.awaitMessages(filter, { max: 1, time: 10000 });
+        const collected = await msg.channel.awaitMessages(filter, { max: 1, time: 30000 });
         /* set data to VALUES object */
         VALUES.push(
           questions[i].type === 'text'
-            ? `'${collected.first().content}'`
+            ? `'${collected.first().content.replace("'", "''")}'`
             : collected.first().content,
         );
         i += 1;

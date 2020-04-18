@@ -1,4 +1,4 @@
 module.exports = (string, prefix) => {
-  const [command, attr] = string.slice(prefix.length).split(/ +/);
-  return !attr ? [command] : [command, attr];
+  const [command, ...others] = string.slice(prefix.length).split(/ +/);
+  return !others ? [command] : [command, others];
 };
