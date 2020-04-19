@@ -6,18 +6,25 @@ const pool = new Pool({
 });
 module.exports = async (userid, WEAPON_TABLE, PLAYER_TABLE) => {
   const playerQuery = `SELECT weapons_id FROM ${PLAYER_TABLE} WHERE userid = '${userid}'`;
+  const weaponsArray = [];
   const playerWeapons = await new Promise((resolve, reject) => {
     pool.query(playerQuery, (err, res) => {
       if (err) reject(err);
       else resolve(res.rows[0].weapons_id);
     });
   });
-  const query = `SELECT * FROM ${WEAPON_TABLE} WHERE id='${playerWeapons}'`;
-  const data = await new Promise((resolve, reject) => {
-    pool.query(query, (err, res) => {
-      if (err) reject(err);
-      else resolve(res.rows[0]);
+  for (let index = 0; index < playerWeapons.length; index += 1) {
+    const weapon = playerWeapons[index];
+    const query = `SELECT * FROM ${WEAPON_TABLE} WHERE id='${weapon}'`;
+    // eslint-disable-next-line no-await-in-loop
+    const data = await new Promise((resolve, reject) => {
+      pool.query(query, (err, res) => {
+        if (err) reject(err);
+        else resolve(res.rows[0]);
+      });
     });
-  });
-  return data;
+    weaponsArray.push(data);
+  }
+
+  return weaponsArray;
 };
